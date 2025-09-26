@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHINSALI MUNICIPAL COUNCIL - LAND CLEAN UP</title>
+<style>
+body { font-family: Arial, sans-serif; background:#f4f4f4; padding:20px; }
+form { background:#fff; padding:20px; border-radius:5px; max-width:800px; margin:auto; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+h1, h2 { color:#333; border-bottom:1px solid #ddd; padding-bottom:5px; }
+.form-group { margin-bottom:15px; }
+label { font-weight:bold; display:block; margin-bottom:5px; }
+input[type="text"], input[type="email"], input[type="file"], select, textarea { width:100%; padding:8px; margin-top:5px; box-sizing:border-box; }
+textarea { height:80px; }
+.radio-group, .checkbox-group { display:flex; gap:10px; flex-wrap:wrap; margin-top:5px; }
+button { padding:10px 20px; border:none; border-radius:5px; background:#007BFF; color:white; cursor:pointer; }
+button:hover { background:#0056b3; }
+button:disabled { background:#ccc; cursor:not-allowed; }
+.form-section { display:none; }
+.form-section.active { display:block; }
+.buttons { display:flex; justify-content:space-between; margin-top:20px; }
+.progressbar { display:flex; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; }
+.progress-step { display:flex; flex-direction:column; align-items:center; flex:1; cursor:pointer; margin-bottom:15px; font-size:12px; position:relative; text-align:center; }
+.progress-step .circle { width:30px; height:30px; border-radius:50%; border:2px solid #ccc; background:white; display:flex; align-items:center; justify-content:center; margin-bottom:5px; }
+.progress-step.active .circle { background:#007BFF; border-color:#007BFF; color:white; }
+.progress-step.completed .circle { background:#28a745; border-color:#28a745; color:white; }
+.progress-step::after { content:''; position:absolute; top:15px; left:50%; width:100%; height:2px; background:#ccc; z-index:1; }
+.progress-step:last-child::after { display:none; }
+@media(max-width:768px){ .progress-step { flex:0 0 30%; } }
+@media(max-width:480px){ .progress-step { flex:0 0 45%; } }
+body {
+  font-family: Arial, sans-serif;
+  background:#f4f4f4;
+  padding:20px;
+  text-align: center; /* Centers everything */
+}
+
+form {
+  background:#fff;
+  padding:20px;
+  border-radius:5px;
+  max-width:800px;
+  margin:auto;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  text-align:left; /* Keeps form fields aligned left */
+}
+
+.header img {
+  max-width:120px; /* Adjust logo size */
+  margin-bottom:10px;
+}
+
+.header h1 {
+  margin:0;
+  color:#333;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="logo.png" alt="Chinsali Municipal Council Logo">
+<h1>CHINSALI MUNICIPAL COUNCIL - LAND CLEAN UP DATA COLLECTION</h1>
+</div>
+
+<div class="progressbar" id="progressbar">
+  <div class="progress-step active" data-step="0"><div class="circle">A</div>Plot Identification</div>
+  <div class="progress-step" data-step="1"><div class="circle">B</div>Development Fees</div>
+  <div class="progress-step" data-step="2"><div class="circle">C</div>Allocation</div>
+  <div class="progress-step" data-step="3"><div class="circle">D</div>Certificate of Title</div>
+  <div class="progress-step" data-step="4"><div class="circle">E</div>Compliance</div>
+  <div class="progress-step" data-step="5"><div class="circle">F</div>Observations</div>
+</div>
+
+<form id="multiStepForm" action="https://formsubmit.co/chinsali.council@grz.gov.zm" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://your-website.com/thank-you.html"> 
+
+<!-- Section A -->
+<div class="form-section active">
+<h2>Section A: Plot Identification</h2>
+
+<div class="form-group">
+<label>1. Plot No.:</label>
+<input type="text" name="plot_number" required>
+</div>
+
+<div class="form-group">
+<label>2. Owner Name:</label>
+<input type="text" name="owner_name" placeholder="Enter name" required>
+</div>
+
+<div class="form-group">
+<label>Owner Type:</label>
+<div class="checkbox-group">
+<label><input type="checkbox" name="owner_type[]" value="Original"> Original Owner</label>
+<label><input type="checkbox" name="owner_type[]" value="Current"> Current Owner</label>
+<label><input type="checkbox" name="owner_type[]" value="Third Party"> Third Party</label>
+</div>
+</div>
+
+<div class="form-group">
+<label>Original Owner Details:</label>
+<input type="text" name="original_owner_name" placeholder="Enter name">
+<input type="text" name="original_owner_NRC" placeholder="Enter NRC">
+<input type="text" name="original_owner_phone" placeholder="Phone Number">
+<input type="email" name="original_owner_email" placeholder="Email Address">
+</div>
+
+<div class="form-group">
+<label>Third Party Details:</label>
+<input type="text" name="third_party_name" placeholder="Enter name">
+<input type="text" name="third_party_NRC" placeholder="Enter NRC">
+<input type="text" name="third_party_phone" placeholder="Phone Number">
+<input type="email" name="third_party_email" placeholder="Email Address">
+</div>
+
+<div class="form-group">
+<label>Current Owner Contact:</label>
+<input type="text" name="current_owner_phone" placeholder="Phone Number">
+<input type="email" name="current_owner_email" placeholder="Email Address">
+</div>
+
+<div class="form-group">
+<label>4. Location Details:</label>
+<input type="text" name="area" placeholder="Area">
+<input type="text" id="gps" name="gps" placeholder="GPS Coordinates" readonly>
+</div>
+
+<div class="form-group">
+<label>5. Category of Plot:</label>
+<select name="plot_category">
+<option value="">--Select--</option>
+<option value="Residential">Residential</option>
+<option value="Commercial">Commercial</option>
+<option value="Industrial">Industrial</option>
+<option value="Institutional">Institutional</option>
+<option value="Other">Other</option>
+</select>
+<input type="text" name="category_other" placeholder="If other, specify">
+</div>
+
+<div class="buttons">
+<button type="button" class="prevBtn" disabled>Previous</button>
+<button type="button" class="nextBtn">Next</button>
+</div>
+</div>
+
+<!-- Section B -->
+<div class="form-section">
+<h2>Section B: Development Fees</h2>
+
+<div class="form-group">
+<label>6. Land Application Fee Paid?</label>
+<div class="radio-group">
+<label><input type="radio" name="land_application_paid" value="Yes"> Yes</label>
+<label><input type="radio" name="land_application_paid" value="No"> No</label>
+</div>
+<input type="text" name="land_application_receipt" placeholder="Receipt No.">
+<label>Upload Receipt:</label>
+<input type="file" name="land_application_file" accept="image/*" capture="environment">
+</div>
+
+<div class="form-group">
+<label>7. Development Fee Paid?</label>
+<div class="radio-group">
+<label><input type="radio" name="development_fee_paid" value="Yes"> Yes</label>
+<label><input type="radio" name="development_fee_paid" value="No"> No</label>
+</div>
+<input type="text" name="development_fee_receipt" placeholder="Receipt No.">
+<label>Upload Receipt:</label>
+<input type="file" name="development_fee_file" accept="image/*" capture="environment">
+</div>
+
+<div class="form-group">
+<label>8. Extract of Minutes Fee Paid?</label>
+<div class="radio-group">
+<label><input type="radio" name="extract_minutes_paid" value="Yes"> Yes</label>
+<label><input type="radio" name="extract_minutes_paid" value="No"> No</label>
+</div>
+<input type="text" name="extract_minutes_receipt" placeholder="Receipt No.">
+<label>Upload Receipt:</label>
+<input type="file" name="extract_minutes_file" accept="image/*" capture="environment">
+</div>
+
+<div class="buttons">
+<button type="button" class="prevBtn">Previous</button>
+<button type="button" class="nextBtn">Next</button>
+</div>
+</div>
+
+<!-- Section C -->
+<div class="form-section">
+<h2>Section C: Allocation of Stand</h2>
+
+<div class="form-group">
+<label>9. Demand Notice Issued?</label>
+<div class="radio-group">
+<label><input type="radio" name="demand_notice_issued" value="Yes"> Yes</label>
+<label><input type="radio" name="demand_notice_issued" value="No"> No</label>
+</div>
+<input type="text" name="demand_notice_amount" placeholder="Amount Specified">
+</div>
+
+<div class="form-group">
+<label>10. Any Allocation Document?</label>
+<div class="radio-group">
+<label><input type="radio" name="allocation_doc_available" value="Yes"> Yes</label>
+<label><input type="radio" name="allocation_doc_available" value="No"> No</label>
+</div>
+<label>Upload Document:</label>
+<input type="file" name="allocation_doc_file" accept="image/*" capture="environment">
+</div>
+
+<div class="buttons">
+<button type="button" class="prevBtn">Previous</button>
+<button type="button" class="nextBtn">Next</button>
+</div>
+</div>
+
+<!-- Section D -->
+<div class="form-section">
+<h2>Section D: Certificate of Title</h2>
+
+<div class="form-group">
+<label>11. Status at Ministry of Lands:</label>
+<select name="title_status">
+<option value="">--Select--</option>
+<option value="Invitation to treaty">Invitation to treaty</option>
+<option value="On Offer">On Offer</option>
+<option value="On title">On title</option>
+<option value="Nil">Nil</option>
+</select>
+</div>
+
+<div class="buttons">
+<button type="button" class="prevBtn">Previous</button>
+<button type="button" class="nextBtn">Next</button>
+</div>
+</div>
+
+<!-- Section E -->
+<div class="form-section">
+<h2>Section E: Development Compliance</h2>
+
+<div class="form-group">
+<label>12. Scrutiny Fee Paid?</label>
+<div class="radio-group">
+<label><input type="radio" name="scrutiny_fee_paid" value="Yes"> Yes</label>
+<label><input type="radio" name="scrutiny_fee_paid" value="No"> No</label>
+</div>
+<input type="text" name="scrutiny_fee_receipt" placeholder="Receipt No.">
+<label>Upload Receipt:</label>
+<input type="file" name="scrutiny_fee_file" accept="image/*" capture="environment">
+</div>
+
+<div class="form-group">
+<label>13. Approved Building Plans Available?</label>
+<div class="radio-group">
+<label><input type="radio" name="plans_available" value="Yes"> Yes</label>
+<label><input type="radio" name="plans_available" value="No"> No</label>
+</div>
+<label>Upload proof:</label>
+<input type="file" name="plans_file" accept="image/*" capture="environment">
+</div>
+
+<div class="form-group">
+<label>14. Permission to Build Granted?</label>
+<div class="radio-group">
+<label><input type="radio" name="build_permission" value="Yes"> Yes</label>
+<label><input type="radio" name="build_permission" value="No"> No</label>
+</div>
+<label>Upload proof if any:</label>
+<input type="file" name="build_permission_file" accept="image/*" capture="environment">
+<input type="text" name="permission_ref" placeholder="Reference/Date">
+</div>
+
+<div class="form-group">
+<label>15. Is there an Occupation Certificate?</label>
+<div class="radio-group">
+<label><input type="radio" name="occupation_certificate" value="Yes"> Yes</label>
+<label><input type="radio" name="occupation_certificate" value="No"> No</label>
+</div>
+<label>Upload certificate:</label>
+<input type="file" name="occupation_certificate_file" accept="image/*" capture="environment">
+</div>
+
+<div class="buttons">
+<button type="button" class="prevBtn">Previous</button>
+<button type="button" class="nextBtn">Next</button>
+</div>
+</div>
+
+<!-- Section F -->
+<div class="form-section">
+<h2>Section F: Additional Observations and Notes</h2>
+
+<div class="form-group">
+<label>16. Are there any unauthorized structures or activities on the plot?</label>
+<div class="radio-group">
+<label><input type="radio" name="unauthorized_structures" value="Yes"> Yes</label>
+<label><input type="radio" name="unauthorized_structures" value="No"> No</label>
+</div>
+</div>
+
+<div class="form-group">
+<label>17. Other remarks / recommendations:</label>
+<textarea name="other_remarks_recommendation" placeholder="Enter remarks or recommendations here..."></textarea>
+</div>
+
+<div class="buttons">
+<button type="button" class="prevBtn">Previous</button>
+<button type="submit">Submit</button>
+</div>
+</div>
+
+</form>
+
+<!-- Geolocation Script -->
+<script>
+window.onload = function () {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const lat = position.coords.latitude.toFixed(6);
+      const lon = position.coords.longitude.toFixed(6);
+      document.getElementById('gps').value = lat + ", " + lon;
+    }, function () {
+      console.warn("Geolocation failed or permission denied.");
+    });
+  } else {
+    console.warn("Geolocation is not supported by this browser.");
+  }
+};
+</script>
+
+<script>
+// Multi-step form script
+const formSections = document.querySelectorAll('.form-section');
+const nextBtns = document.querySelectorAll('.nextBtn');
+const prevBtns = document.querySelectorAll('.prevBtn');
+const progressSteps = document.querySelectorAll('.progress-step');
+let currentStep = 0;
+
+function showSection(step) {
+  formSections.forEach((section, index) => {
+    section.classList.toggle('active', index === step);
+  });
+
+  progressSteps.forEach((stepElem, index) => {
+    stepElem.classList.remove('active', 'completed');
+    if (index < step) {
+      stepElem.classList.add('completed');
+    } else if (index === step) {
+      stepElem.classList.add('active');
+    }
+  });
+}
+
+nextBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (currentStep < formSections.length - 1) {
+      currentStep++;
+      showSection(currentStep);
+    }
+  });
+});
+
+prevBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (currentStep > 0) {
+      currentStep--;
+      showSection(currentStep);
+    }
+  });
+});
+
+// Allow clicking on progress steps
+progressSteps.forEach((stepElem, index) => {
+  stepElem.addEventListener('click', () => {
+    currentStep = index;
+    showSection(currentStep);
+  });
+});
+
+showSection(currentStep);
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+document.getElementById("multiStepForm").addEventListener("submit", function(e) {
+  e.preventDefault(); // Stop normal submission
+
+  // Collect form data
+  const formData = new FormData(this);
+  const data = {};
+  formData.forEach((value, key) => {
+    data[key] = value;
+  });
+
+  // Convert to sheet
+  const ws = XLSX.utils.json_to_sheet([data]);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Form Data");
+
+  // Download Excel file
+  XLSX.writeFile(wb, "form_data.xlsx");
+
+  // OPTIONAL: continue sending to your email (FormSubmit)
+  this.submit();
+});
+</script>
+
+</body>
+</html>
