@@ -313,7 +313,9 @@ form {
   <input type="hidden" name="_template" value="table">
   <input type="hidden" name="_subject" value="New Form Submission - Land Cleanup">
   <input type="hidden" name="_next" value="https://davies-mate.github.io/cmc_cleanup/thank-you.html">
-
+  
+<input type="hidden" id="latitude" name="latitude">
+<input type="hidden" id="longitude" name="longitude">
   
 <div class="buttons">
 <button type="button" class="prevBtn">Previous</button>
@@ -417,5 +419,23 @@ document.getElementById("multiStepForm").addEventListener("submit", function(e) 
 });
 </script>
 
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        document.getElementById("latitude").value = position.coords.latitude;
+        document.getElementById("longitude").value = position.coords.longitude;
+      },
+      (error) => {
+        console.log("Geolocation error:", error);
+      }
+    );
+  } else {
+    console.log("Geolocation not supported.");
+  }
+});
+</script>
+  
 </body>
 </html>
